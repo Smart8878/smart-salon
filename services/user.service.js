@@ -2,10 +2,13 @@ const { User } = require('../models');
 
 class UserService {
 
-  async getUser({ id }) {
-    const query = {};
-    if (id) query._id = id;
-    const user = await User.getByQuery(query, { findOne: !!id });
+  async getUser(query) {
+    if (query?.id) {
+      delete query.id
+      query._id = id
+    }
+    console.log("querrrrries",query)
+    const user = await User.getByQuery(query, { findOne: !!query?.id });
     return user;
   }
 
